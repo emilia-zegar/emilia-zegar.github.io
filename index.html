@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moje Portfolio - Grafik Komputerowy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fafafa;
+            color: #222;
+            line-height: 1.6;
+        }
+        a { color: #0066cc; text-decoration: none; font-weight: 600; }
+        a:hover { text-decoration: underline; }
+
+        header {
+            text-align: center;
+            padding: 80px 20px;
+            background-color: #ffffff;
+            border-bottom: 1px solid #eaeaea;
+        }
+        header h1 { font-size: 2.5rem; font-weight: 600; margin-bottom: 10px; }
+        header p { font-size: 1.1rem; color: #555; max-width: 600px; margin: 0 auto; }
+
+        section { max-width: 1000px; margin: 60px auto; padding: 0 20px; }
+        h2 { font-size: 1.8rem; margin-bottom: 30px; text-align: center; }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        .project-card {
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+        }
+        .project-image {
+            width: 100%;
+            height: 250px;
+            background-color: #e0e0e0;
+            object-fit: cover;
+            display: block;
+        }
+        .project-info { padding: 20px; }
+        .project-info h3 { margin-bottom: 5px; font-size: 1.2rem; }
+        .project-info p { font-size: 0.9rem; color: #666; }
+
+        /* --- LIGHTBOX --- */
+        .lightbox-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+        .lightbox-overlay.active {
+            display: flex;
+        }
+        .lightbox-overlay img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 8px;
+            box-shadow: 0 0 30px rgba(0,0,0,0.5);
+            cursor: default;
+        }
+        .lightbox-close {
+            position: fixed;
+            top: 20px; right: 30px;
+            font-size: 2.5rem;
+            color: #fff;
+            cursor: pointer;
+            z-index: 1001;
+            line-height: 1;
+            font-weight: 300;
+        }
+        .lightbox-close:hover { color: #ccc; }
+
+        /* --- PLIKI DO POBRANIA --- */
+        .downloads-grid {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 25px;
+        }
+        .download-card {
+            background: #fff;
+            border: 1px solid #eaeaea;
+            border-radius: 10px;
+            padding: 30px 35px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            width: 260px;
+        }
+        .download-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+        }
+        .download-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        .download-card h3 { margin-bottom: 8px; font-size: 1.1rem; }
+        .download-card p { font-size: 0.85rem; color: #666; margin-bottom: 18px; }
+        .download-btn {
+            display: inline-block;
+            background: #0066cc;
+            color: #fff;
+            padding: 10px 24px;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: background 0.3s ease;
+        }
+        .download-btn:hover {
+            background: #004fa3;
+            text-decoration: none;
+        }
+
+        .skills {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .skill-tag {
+            background: #eee;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        footer {
+            text-align: center;
+            padding: 60px 20px;
+            background-color: #222;
+            color: #fff;
+        }
+        footer a { color: #fff; text-decoration: underline; margin: 0 10px; }
+    </style>
+</head>
+<body>
+
+    <!-- LIGHTBOX -->
+    <div class="lightbox-overlay" id="lightbox">
+        <span class="lightbox-close" id="lightbox-close">&times;</span>
+        <img src="" alt="Podgląd" id="lightbox-img">
+    </div>
+
+    <header>
+        <h1>Emilia Zegar</h1>
+        <p>Uczeń technikum, grafik z zajawki. Skupiam się na identyfikacji wizualnej i web designie. Zamieniam pomysły w czyste, nowoczesne projekty.</p>
+    </header>
+
+    <main>
+        <section id="portfolio">
+            <h2>Wybrane projekty</h2>
+            <div class="portfolio-grid">
+
+                <div class="project-card" onclick="openLightbox(this)">
+                    <img src="ferie.png" alt="Projekt 1" class="project-image">
+                    <div class="project-info">
+                        <h3>Redesign Logo Pizzerii</h3>
+                        <p>Projekt szkolny. Koncepcja i księga znaku wykonana w Adobe Illustrator.</p>
+                    </div>
+                </div>
+
+                <div class="project-card" onclick="openLightbox(this)">
+                    <img src="HallowenQ.jpg" alt="Projekt 2" class="project-image">
+                    <div class="project-info">
+                        <h3>Plakat Festiwalowy</h3>
+                        <p>Plakat typograficzny stworzony w Adobe Photoshop.</p>
+                    </div>
+                </div>
+
+                <div class="project-card" onclick="openLightbox(this)">
+                    <img src="kartka_swiateczna.pdf" alt="Projekt 3" class="project-image">
+                    <div class="project-info">
+                        <h3>Grafiki na Social Media</h3>
+                        <p>Zestaw spójnych szablonów na Instagram dla lokalnego schroniska.</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SEKCJA POBIERANIA PLIKÓW -->
+        <section id="downloads">
+            <h2>Pliki do pobrania</h2>
+            <div class="downloads-grid">
+
+                <div class="download-card">
+                    <div class="download-icon">📊</div>
+                    <h3>Prezentacja</h3>
+                    <p>Podsumowanie projektów w formie slajdów PowerPoint.</p>
+                    <a href="pliki/prezentacja.pptx" download class="download-btn">Pobierz .pptx</a>
+                </div>
+
+                <div class="download-card">
+                    <div class="download-icon">📄</div>
+                    <h3>Opis projektów</h3>
+                    <p>Szczegółowy opis realizacji w dokumencie Word.</p>
+                    <a href="pliki/opis.docx" download class="download-btn">Pobierz .docx</a>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="skills">
+            <h2>Narzędzia, z którymi pracuję</h2>
+            <div class="skills">
+                <span class="skill-tag">Adobe Photoshop</span>
+                <span class="skill-tag">Adobe Illustrator</span>
+                <span class="skill-tag">Figma</span>
+                <span class="skill-tag">Podstawy HTML/CSS</span>
+            </div>
+        </section>
+    </main>
+
+    <footer id="contact">
+        <h2>Porozmawiajmy!</h2>
+        <p>Szukasz grafika do projektu lub na praktyki?</p>
+        <p style="margin-top: 20px;">
+            <a href="mailto:twoj@email.pl">Napisz do mnie: twoj@email.pl</a>
+        </p>
+        <p style="margin-top: 20px; font-size: 0.8rem; color: #aaa;">
+            <a href="#">Behance</a> | <a href="#">LinkedIn</a>
+        </p>
+    </footer>
+
+    <script>
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+
+        function openLightbox(card) {
+            const img = card.querySelector('.project-image');
+            lightboxImg.src = img.src;
+            lightboxImg.alt = img.alt;
+            lightbox.classList.add('active');
+        }
+
+        // Zamknij po kliknięciu X, tła lub klawisza Escape
+        document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
+        lightbox.addEventListener('click', function(e) {
+            if (e.target === lightbox) closeLightbox();
+        });
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeLightbox();
+        });
+
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+        }
+    </script>
+
+</body>
+</html>
