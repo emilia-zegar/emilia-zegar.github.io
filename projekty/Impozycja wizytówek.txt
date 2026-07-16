@@ -1,0 +1,4 @@
+Klasa 2
+Projekt: Impozycja wizytówki
+Program: Impozycjoner
+Wymagania: Impozycja 10 użytków

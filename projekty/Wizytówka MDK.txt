@@ -1,0 +1,4 @@
+Klasa 3
+Projekt: Projekt własny wizytówki dla MDK
+Program: CorelDRAW
+Wymagania: Format 90 x 50 mm, Dane firmy 

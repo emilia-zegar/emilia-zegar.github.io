@@ -1,0 +1,4 @@
+Klasa 1
+Projekt: Nauka pióra w inkscape
+Program: Inkscape
+Wymagania: Szkic statku

@@ -1,0 +1,4 @@
+Klasa 2
+Projekt: Projekt własny kartki na dzień nauczyciela
+Program: CorelDRAW
+Wymagania: Logo i dane szkoły, umieszczenie w projekcie gotowych życzeń.

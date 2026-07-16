@@ -1,0 +1,4 @@
+Klasa 3
+Projekt: Impozycja wizytówki dla MDK
+Program: Impozycjoner
+Wymagania: Impozycja 21 użytków
